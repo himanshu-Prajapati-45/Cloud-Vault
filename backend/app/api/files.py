@@ -15,7 +15,7 @@ MAX_SIZE_BYTES = 10 * 1024 * 1024 * 1024 # 10 GB
 UPLOAD_DIR = "uploaded"
 
 def get_file_url(filename: str):
-    return f"http://localhost:8000/uploaded/{filename}"
+    return f"https://wasd-y3xb.onrender.com/uploaded/{filename}"
 
 @router.post("/upload")
 async def upload_file(

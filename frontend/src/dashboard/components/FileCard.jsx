@@ -32,7 +32,7 @@ export default function FileCard({ file, onShare, onDelete }) {
         if (file?.id) {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`http://localhost:8000/api/files/${file.id}/download/direct`, {
+                const response = await fetch(`https://wasd-y3xb.onrender.com/api/files/${file.id}/download/direct`, {
                     headers: {
                         'Authorization': token ? `Bearer ${token}` : ''
                     }
