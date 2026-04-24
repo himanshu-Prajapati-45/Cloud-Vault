@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+<<<<<<< HEAD
 html, body {
   margin: 0;
   padding: 0;
@@ -31,4 +32,10 @@ body {
 /* Smooth transitions for theme switching */
 .theme-transition {
   transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+=======
+/* Global setup for light/dark mode root */
+body {
+  margin: 0;
+  font-family: sans-serif;
+>>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f
 }

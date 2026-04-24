@@ -12,5 +12,8 @@ python-multipart
 python-dotenv
 pydantic-settings
 requests
+<<<<<<< HEAD
 httpx
+=======
+>>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f
 dnspython

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 const getHeaders = () => {
@@ -13,6 +14,16 @@ export const healthCheckApi = async () => {
     });
     if (!response.ok) throw new Error('Backend unreachable');
     return response.json();
+=======
+const API_URL = 'https://wasd-y3xb.onrender.com/api';
+
+const getHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Authorization': token ? `Bearer ${token}` : '',
+    'Content-Type': 'application/json'
+  };
+>>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f
 };
 
 export const loginApi = async (email, password) => {
@@ -67,6 +78,7 @@ export const fetchTrashedFilesApi = async () => {
     return response.json();
 };
 
+<<<<<<< HEAD
 export const uploadFileApi = async (file, onProgress) => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -108,6 +120,22 @@ export const uploadFileApi = async (file, onProgress) => {
         xhr.onerror = () => reject(new Error('Network error'));
         xhr.send(formData);
     });
+=======
+export const uploadFileApi = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_URL}/files/upload`, {
+        method: 'POST',
+        headers: {
+            'Authorization': token ? `Bearer ${token}` : ''
+        },
+        body: formData
+    });
+    if (!response.ok) throw new Error('Upload failed');
+    return response.json();
+>>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f
 };
 
 export const deleteFileApi = async (fileId) => {
@@ -152,6 +180,7 @@ export const fetchStorageStatsApi = async () => {
     if (!response.ok) throw new Error('Failed to fetch storage stats');
     return response.json();
 };
+<<<<<<< HEAD
 
 export const shareFileApi = async (fileId, expiresHours = 24, password = null) => {
     const options = {
@@ -195,3 +224,5 @@ export const fetchMeApi = async () => {
     if (!response.ok) throw new Error('Failed to fetch user profile');
     return response.json();
 };
+=======
+>>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f
