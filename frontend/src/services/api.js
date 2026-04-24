@@ -8,6 +8,14 @@ const getHeaders = () => {
   };
 };
 
+export const healthCheckApi = async () => {
+    const response = await fetch(`${API_URL.replace('/api', '')}/health`, {
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if (!response.ok) throw new Error('Backend unreachable');
+    return response.json();
+};
+
 export const loginApi = async (email, password) => {
     const formData = new URLSearchParams();
     formData.append('username', email);
