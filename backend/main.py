@@ -1,6 +1,7 @@
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import httpx
 from app.api import auth, files, share
 from app.core.database import db
 
@@ -55,9 +56,23 @@ async def health_check():
         mongo_status = "connected"
     except Exception:
         mongo_status = "disconnected"
+
+    frontend_status = "unknown"
+    try:
+        frontend_url = settings.FRONTEND_URL or "http://localhost:5173"
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(frontend_url)
+            if resp.status_code in (200, 301, 302, 304):
+                frontend_status = "connected"
+            else:
+                frontend_status = "disconnected"
+    except Exception:
+        frontend_status = "disconnected"
+
     return {
         "status": "healthy",
         "backend": "running",
         "mongo": mongo_status,
-        "message": f"Backend live; MongoDB {mongo_status}.",
+        "frontend": frontend_status,
+        "message": f"Backend live; MongoDB {mongo_status}; Frontend {frontend_status}.",
     }
