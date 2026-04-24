@@ -1,20 +1,13 @@
-<<<<<<< HEAD
 from fastapi import APIRouter, HTTPException, Request, Query
 from datetime import datetime
 from typing import Optional
 from app.core.database import files_col
 from app.core.s3 import generate_presigned_url
 from app.core.security import verify_password
-=======
-from fastapi import APIRouter, HTTPException
-from datetime import datetime
-from app.core.database import files_col
->>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f
 
 router = APIRouter()
 
 @router.get("/{token}")
-<<<<<<< HEAD
 async def access_shared_file(
     request: Request,
     token: str,
@@ -44,13 +37,3 @@ async def access_shared_file(
         "expires_at": file.get("share_expires_at", "").isoformat() if file.get("share_expires_at") else None,
         "is_password_protected": bool(file.get("share_password_hash")),
     }
-=======
-async def access_shared_file(token: str):
-    file = await files_col.find_one({"share_token": token})
-    if not file or file.get("share_expires_at", datetime.min) < datetime.utcnow():
-        raise HTTPException(status_code=404, detail="Link expired or invalid")
-        
-    url = f"https://wasd-y3xb.onrender.com/uploaded/{file['s3_key']}"
-    return {"download_url": url}
-
->>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f

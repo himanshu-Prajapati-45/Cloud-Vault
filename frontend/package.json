@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.13.4",
-<<<<<<< HEAD
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.81",
     "clsx": "^2.1.1",
@@ -26,13 +25,6 @@
     "react-pdf": "^10.4.1",
     "react-router-dom": "^7.13.1",
     "tailwind-merge": "^3.5.0"
-=======
-    "fastapi": "^0.0.8",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-dropzone": "^15.0.0",
-    "react-router-dom": "^7.13.1"
->>>>>>> b98c8ba4272dd4ee9a18958b0041b2b4dbbbf71f
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
