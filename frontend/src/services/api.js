@@ -2,10 +2,9 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
-  return {
-    'Authorization': token ? `Bearer ${token}` : '',
-    'Content-Type': 'application/json'
-  };
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  return headers;
 };
 
 export const healthCheckApi = async () => {

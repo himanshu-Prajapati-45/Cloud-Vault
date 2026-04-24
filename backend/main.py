@@ -9,17 +9,29 @@ app = FastAPI(title="CloudVault API")
 
 from app.core.config import settings
 
-# Build allowed origins: always include localhost for dev, plus FRONTEND_URL for production
-allowed_origins = [
+# Build allowed origins — hardcode production URLs to guarantee CORS works
+_allowed = [
     "http://localhost:5173", "http://127.0.0.1:5173",
     "http://localhost:5174", "http://127.0.0.1:5174",
+    # Production
+    "https://wasd1.vercel.app",
+    "https://wasd1.onrender.com",
+    # Fallback env-based
 ]
-if settings.FRONTEND_URL and settings.FRONTEND_URL not in allowed_origins:
-    allowed_origins.append(settings.FRONTEND_URL)
+if settings.FRONTEND_URL:
+    _clean = settings.FRONTEND_URL.rstrip("/")
+    if _clean not in _allowed:
+        _allowed.append(_clean)
+# Allow any Vercel/Render preview subdomain
+import os
+for env_key in ["VERCEL_URL", "RAILWAY_STATIC_URL", "NEXT_PUBLIC_VERCEL_URL"]:
+    _url = os.getenv(env_key, "").strip()
+    if _url and _url not in _allowed:
+        _allowed.append(f"https://{_url}")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=_allowed,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
